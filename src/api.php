@@ -54,13 +54,15 @@ switch ($recurso) {
                 break;
             case 'POST':
                 $data = json_decode(file_get_contents('php://input'), true);
-                $stmt = $pdo->prepare("INSERT INTO categorias(name) VALUES(?)");
+                $stmt = $pdo->prepare("INSERT INTO categorias(nombre) VALUES(?)");
                 $stmt->execute([
-                    $data['name']
+                    $data['nombre']
                 ]);
                 http_response_code(201);
                 $data['id'] = $pdo->lastInsertId();
                 echo json_encode($data);
+
+                break;
         }
         break;
 
@@ -87,6 +89,17 @@ switch ($recurso) {
                     $response = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     echo json_encode($response);
                 }
+                break;
+            case 'POST':
+                $data = json_decode(file_get_contents('php://input'), true);
+                $stmt = $pdo->prepare("INSERT INTO productos(nombre,precio, categoria_id) VALUES(?,?,?)");
+                $stmt->execute([
+                    $data['nombre'], $data['precio'], $data['categoria_id']
+                ]);
+                http_response_code(201);
+                $data['id'] = $pdo->lastInsertId();
+                echo json_encode($data);
+
                 break;
 
         }
@@ -115,6 +128,18 @@ switch ($recurso) {
                     $response = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     echo json_encode($response);
                 }
+                break;
+            case 'POST':
+                $data = json_decode(file_get_contents('php://input'), true);
+                $stmt = $pdo->prepare("INSERT INTO promociones(descripcion,descuento, producto_id) VALUES(?,?,?)");
+                $stmt->execute([
+                    $data['descripcion'], $data['descuento'], $data['producto_id']
+                ]);
+                http_response_code(201);
+                $data['id'] = $pdo->lastInsertId();
+                echo json_encode($data);
+            
+                break;
         }
         break;
 
