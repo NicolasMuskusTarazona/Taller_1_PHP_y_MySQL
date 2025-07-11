@@ -16,8 +16,6 @@
 				"bmewburn.vscode-intelephense-client",
 				"esbenp.prettier-vscode",
 				"vivaxy.vscode-conventional-commits",
-				"mhutchie.git-graph",
-				"pkief.material-icon-theme",
 				"cweijan.vscode-mysql-client2"
 			]
 		}
