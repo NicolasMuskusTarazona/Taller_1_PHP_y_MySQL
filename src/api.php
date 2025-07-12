@@ -79,8 +79,36 @@ switch ($recurso) {
                     $data['nombre'],
                     $id,
                 ]);
+                echo json_encode($data);
                 break;
 
+            case 'DELETE':
+                if (!$id) {
+                    http_response_code(400);
+                    echo json_encode([
+                        'error' => 'ID no encontrado',
+                        'code' => 400,
+                        'errorUrl' => 'https://http.cat/400'
+                    ]);
+                    exit;
+                }
+                $stmt = $pdo->prepare("SELECT * FROM categorias WHERE id = ?");
+                $stmt->execute([$id]);
+                $product = $stmt->fetch(PDO::FETCH_ASSOC);
+            
+                if (!$product) {
+                    http_response_code(404);
+                    echo json_encode([
+                        'error' => 'Categorias no encontrado',
+                        'code' => 404,
+                        'errorUrl' => 'https://http.cat/404'
+                    ]);
+                    exit;
+                }
+                $stmt = $pdo->prepare("DELETE FROM categorias WHERE id = ?");
+                $stmt->execute([$id]);
+                echo json_encode($product);
+                break;
         }
         break;
 
@@ -137,8 +165,36 @@ switch ($recurso) {
                     $data['categoria_id'],
                     $id,
                 ]);
+                echo json_encode($data);
                 break;
 
+            case 'DELETE':
+                if (!$id) {
+                    http_response_code(400);
+                    echo json_encode([
+                        'error' => 'ID no encontrado',
+                        'code' => 400,
+                        'errorUrl' => 'https://http.cat/400'
+                    ]);
+                    exit;
+                }
+                $stmt = $pdo->prepare("SELECT * FROM productos WHERE id = ?");
+                $stmt->execute([$id]);
+                $product = $stmt->fetch(PDO::FETCH_ASSOC);
+            
+                if (!$product) {
+                    http_response_code(404);
+                    echo json_encode([
+                        'error' => 'Producto no encontrado',
+                        'code' => 404,
+                        'errorUrl' => 'https://http.cat/404'
+                    ]);
+                    exit;
+                }
+                $stmt = $pdo->prepare("DELETE FROM productos WHERE id = ?");
+                $stmt->execute([$id]);
+                echo json_encode($product);
+                break;
         }
         break;
 
@@ -194,6 +250,36 @@ switch ($recurso) {
                     $data['producto_id'],
                     $id,
                 ]);
+                echo json_encode($data);
+
+                break;
+
+            case 'DELETE':
+                if (!$id) {
+                    http_response_code(400);
+                    echo json_encode([
+                        'error' => 'ID no encontrado',
+                        'code' => 400,
+                        'errorUrl' => 'https://http.cat/400'
+                    ]);
+                    exit;
+                }
+                $stmt = $pdo->prepare("SELECT * FROM promociones WHERE id = ?");
+                $stmt->execute([$id]);
+                $product = $stmt->fetch(PDO::FETCH_ASSOC);
+            
+                if (!$product) {
+                    http_response_code(404);
+                    echo json_encode([
+                        'error' => 'Promociones no encontrado',
+                        'code' => 404,
+                        'errorUrl' => 'https://http.cat/404'
+                    ]);
+                    exit;
+                }
+                $stmt = $pdo->prepare("DELETE FROM promociones WHERE id = ?");
+                $stmt->execute([$id]);
+                echo json_encode($product);
                 break;
     
         }
