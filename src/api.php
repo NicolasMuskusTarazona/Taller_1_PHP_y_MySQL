@@ -52,6 +52,7 @@ switch ($recurso) {
                     echo json_encode($response);
                 }
                 break;
+                
             case 'POST':
                 $data = json_decode(file_get_contents('php://input'), true);
                 $stmt = $pdo->prepare("INSERT INTO categorias(nombre) VALUES(?)");
@@ -63,6 +64,23 @@ switch ($recurso) {
                 echo json_encode($data);
 
                 break;
+                
+            case 'PUT':
+                if (!$id) {
+                    http_response_code(400);
+                    echo json_encode(['error' => 'ID no encontrado', 'code' => 400, 'errorUrl' => 'https://http.cat/400']);
+                    exit;
+                }
+                
+                $data = json_decode(file_get_contents('php://input'), true);
+                $stmt = $pdo->prepare("UPDATE categorias SET id=?, nombre=? WHERE id=?");
+                $stmt->execute([
+                    $data['id'],
+                    $data['nombre'],
+                    $id,
+                ]);
+                break;
+
         }
         break;
 
@@ -90,6 +108,7 @@ switch ($recurso) {
                     echo json_encode($response);
                 }
                 break;
+
             case 'POST':
                 $data = json_decode(file_get_contents('php://input'), true);
                 $stmt = $pdo->prepare("INSERT INTO productos(nombre,precio, categoria_id) VALUES(?,?,?)");
@@ -100,6 +119,24 @@ switch ($recurso) {
                 $data['id'] = $pdo->lastInsertId();
                 echo json_encode($data);
 
+                break;
+
+            case 'PUT':
+                if (!$id) {
+                    http_response_code(400);
+                    echo json_encode(['error' => 'ID no encontrado', 'code' => 400, 'errorUrl' => 'https://http.cat/400']);
+                    exit;
+                }
+                
+                $data = json_decode(file_get_contents('php://input'), true);
+                $stmt = $pdo->prepare("UPDATE productos SET id=?, nombre=?, precio=?, categoria_id=? WHERE id=?");
+                $stmt->execute([
+                    $data['id'],
+                    $data['nombre'],
+                    $data['precio'],
+                    $data['categoria_id'],
+                    $id,
+                ]);
                 break;
 
         }
@@ -140,6 +177,25 @@ switch ($recurso) {
                 echo json_encode($data);
             
                 break;
+
+            case 'PUT':
+                if (!$id) {
+                    http_response_code(400);
+                    echo json_encode(['error' => 'ID no encontrado', 'code' => 400, 'errorUrl' => 'https://http.cat/400']);
+                    exit;
+                }
+                
+                $data = json_decode(file_get_contents('php://input'), true);
+                $stmt = $pdo->prepare("UPDATE promociones SET id=?, descripcion=?, descuento=?, producto_id=? WHERE id=?");
+                $stmt->execute([
+                    $data['id'],
+                    $data['descripcion'],
+                    $data['descuento'],
+                    $data['producto_id'],
+                    $id,
+                ]);
+                break;
+    
         }
         break;
 
