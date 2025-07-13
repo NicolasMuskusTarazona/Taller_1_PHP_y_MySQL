@@ -1,5 +1,13 @@
 # 📄 Taller_1_PHP_y_MySQL
 
+## Diagrama
+
+![Texto alternativo](Diagrama.png)
+
+## PostMan
+
+![Texto alternativo](PostMan.png)
+
 ## Descripción
 Este repositorio contiene el código fuente y los recursos del **Taller 1** desarrollado como parte de un proyecto de aprendizaje para la creación de aplicaciones web utilizando **PHP** y **MySQL**. El taller está diseñado para implementar un sistema básico que permite gestionar datos a través de una interfaz web, interactuando con una base de datos MySQL.
 
