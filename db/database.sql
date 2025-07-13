@@ -42,4 +42,6 @@ INSERT INTO productos (nombre, precio, categoria_id) VALUES
 
 INSERT INTO promociones (descripcion, descuento, producto_id) VALUES
 ('Descuento de temporada en laptop', 10.00, 1),
-('Oferta limitada en celular', 15.00, 2)
+('Oferta limitada en celular', 15.00, 2),
+('Descuento 25% en aspiradora', 25.00, 3),
+('Promo 30% silla gamer', 30.00, 4);
